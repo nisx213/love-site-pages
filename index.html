@@ -270,6 +270,18 @@
   /* 空状态统一 */
   .empty { text-align: center; color: var(--text-faint); font-size: 14px; padding: 12px 4px; line-height: 1.6; }
 
+  /* 加载中骨架（先画框、后填数）：浅粉占位 + 柔和呼吸动画，无外部资源 */
+  .skel {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 56px; color: var(--text-faint); font-size: 13.5px;
+    background: repeating-linear-gradient(90deg, var(--pink-band) 0 14px, #fff5f7 14px 28px);
+    border-radius: 12px; animation: skel-breathe 1.6s ease-in-out infinite;
+  }
+  @keyframes skel-breathe { 0%,100% { opacity: 0.65; } 50% { opacity: 1; } }
+  .skel .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pink-soft); }
+  .hero.skel-hero .avatar { background: rgba(255,255,255,0.4); }
+  .hero.skel-hero .big b { color: rgba(255,255,255,0.55); }
+
   .settings label { display: block; font-size: 13px; color: #8a5a68; margin: 14px 0 6px; font-weight: 600; }
   .settings label:first-of-type { margin-top: 0; }
   .foot-btns { display: flex; gap: 10px; margin-top: 16px; }
@@ -333,13 +345,13 @@
 
   <div class="hero" id="sec-home">
     <div class="avatars">
-      <div class="avatar" id="avatarA">?</div>
+      <div class="avatar" id="avatarA">💞</div>
       <div class="heart">❤️</div>
-      <div class="avatar" id="avatarB">?</div>
+      <div class="avatar" id="avatarB">💞</div>
     </div>
     <div class="names-row"><span id="nameA"></span><span id="nameB"></span></div>
-    <div class="big">我们在一起已经 <b id="daysTogether">–</b> 天</div>
-    <div class="small" id="startText"></div>
+    <div class="big">我们在一起已经 <b id="daysTogether">…</b> 天</div>
+    <div class="small" id="startText">正在加载我们的故事…</div>
   </div>
 
   <div class="unread-banner hidden" id="unreadBanner" role="status" aria-live="polite">
@@ -349,7 +361,7 @@
 
   <div class="card status-card" id="sec-status">
     <h2>今日状态 <span class="sub">现在在忙什么</span></h2>
-    <div class="status-other" id="statusOther"></div>
+    <div class="status-other" id="statusOther"><div class="skel"><span class="dot"></span>正在加载…</div></div>
     <div class="status-mine-label">我的状态</div>
     <div class="mood-row" id="moodRow"></div>
     <input type="text" id="statusText" class="mt" maxlength="50" placeholder="附一句话，可不填（最多 50 字）">
@@ -359,18 +371,18 @@
   </div>
 
   <div class="card meeting-card">
-    <div id="meetingBody"></div>
+    <div id="meetingBody"><div class="skel"><span class="dot"></span>正在加载…</div></div>
   </div>
 
   <div class="card" id="sec-milestones">
     <h2>纪念日</h2>
-    <div id="milestoneList"></div>
+    <div id="milestoneList"><div class="skel"><span class="dot"></span>正在加载…</div></div>
   </div>
 
   <div class="card" id="sec-question">
     <h2>每日一问 <span class="sub">同一天，同一个问题</span></h2>
-    <div class="q-text" id="questionText">加载中…</div>
-    <div id="answersBox"></div>
+    <div class="q-text" id="questionText">正在加载今日一问…</div>
+    <div id="answersBox"><div class="skel"><span class="dot"></span>正在加载…</div></div>
     <textarea id="myAnswer" class="mt" maxlength="500" placeholder="写下我的答案…"></textarea>
     <button class="btn block" id="answerBtn">提交我的答案</button>
   </div>
@@ -378,12 +390,12 @@
   <div class="card miss-wrap" id="sec-miss">
     <h2 style="text-align:left;">想你了</h2>
     <button class="miss-btn" id="missBtn">想你了<br>❤</button>
-    <div class="miss-counts" id="missCounts"></div>
+    <div class="miss-counts" id="missCounts"><div class="skel"><span class="dot"></span>正在加载…</div></div>
   </div>
 
   <div class="card" id="sec-messages">
     <h2>留言墙</h2>
-    <div id="msgList"></div>
+    <div id="msgList"><div class="skel"><span class="dot"></span>正在加载…</div></div>
     <div class="row mt">
       <input type="text" id="msgInput" maxlength="500" placeholder="想对 TA 说的话…">
       <button class="btn" id="msgBtn">留言</button>
@@ -392,7 +404,7 @@
 
   <div class="card" id="sec-wishes">
     <h2>愿望清单 <span class="sub">想一起做的事</span></h2>
-    <div id="wishList"></div>
+    <div id="wishList"><div class="skel"><span class="dot"></span>正在加载…</div></div>
     <div class="row mt">
       <input type="text" id="wishInput" maxlength="500" placeholder="加一个愿望…">
       <button class="btn" id="wishBtn">添加</button>
@@ -401,7 +413,7 @@
 
   <div class="card" id="sec-letters">
     <h2>时光信 <span class="sub">写给未来的我们</span></h2>
-    <div id="letterList"></div>
+    <div id="letterList"><div class="skel"><span class="dot"></span>正在加载…</div></div>
     <label style="display:block;font-size:13px;color:#8a5a68;margin:14px 0 6px;font-weight:600;">写一封时光信</label>
     <input type="text" id="letterTitle" maxlength="50" placeholder="信的标题">
     <div class="row mt">
@@ -414,17 +426,17 @@
 
   <div class="card" id="sec-photos">
     <h2>照片墙</h2>
-    <div id="photoWall"></div>
+    <div id="photoWall"><div class="skel"><span class="dot"></span>正在加载…</div></div>
   </div>
 
   <div class="card" id="sec-period">
     <h2>月月小记 <span class="sub">只属于我们两个人的记录</span></h2>
-    <div class="period-big" id="periodBig">还没有记录</div>
+    <div class="period-big" id="periodBig">加载中…</div>
     <div class="period-sub" id="periodSub"></div>
     <div class="row mt">
       <button class="btn" id="periodTodayBtn">今天来了</button>
     </div>
-    <div class="period-form">
+    <div class="period-form" id="periodForm">
       <div class="period-fields">
         <label class="period-field">开始日期<input type="date" id="periodStart"></label>
         <label class="period-field">结束日期（可空）<input type="date" id="periodEnd"></label>
@@ -432,7 +444,7 @@
       <input type="text" id="periodNote" class="mt" maxlength="100" placeholder="备注（可空，最多 100 字）">
       <button class="btn ghost block" id="periodSaveBtn">保存记录</button>
     </div>
-    <div id="periodList" class="period-list"></div>
+    <div id="periodList" class="period-list"><div class="skel"><span class="dot"></span>正在加载…</div></div>
     <div class="period-hint">预测按历史平均估算，仅供参考，不作医疗依据。</div>
   </div>
 
@@ -596,6 +608,7 @@ function show(viewId) {
 function doLogout() {
   token = ""; who = "";
   seenReported = false;
+  stopPolling();
   localStorage.removeItem("love_token");
   localStorage.removeItem("love_who");
   show("loginView");
@@ -635,44 +648,137 @@ function renderWhoChoices() {
   }
 }
 
-// ============ 数据加载与渲染 ============
-async function loadAll() {
+// ============ 数据加载与渲染（先画框、后填数：所有 GET 并行，谁先回谁先填） ============
+// 各分区「是否已用真实数据渲染过」标记；未渲染时容器里是静态 HTML 的骨架占位
+const sectionRendered = { question: false, messages: false, miss: false, wishes: false, letters: false, status: false, period: false };
+let pollData = {}; // 上一轮各接口的原始响应，供轮询做 JSON 对比
+
+// config 单独加载（登录/身份选择都依赖它）
+async function loadConfigOnly() {
   const data = await api("/api/config");
+  applyConfig(data);
+  return data;
+}
+function applyConfig(data) {
   cfg = data.cfg;
   computed = data.computed;
-  if (!who) {
-    renderWhoChoices();
-    show("whoView");
-    return;
-  }
-  enterMain();
-}
-async function refreshConfig() {
-  const data = await api("/api/config");
-  cfg = data.cfg;
-  computed = data.computed;
-  renderHero();
-  renderMeeting();
-  renderMilestones();
-  renderPhotos();
-}
-async function enterMain() {
-  show("mainView");
   renderHero();
   renderMeeting();
   renderMilestones();
   renderPhotos();
   $("setMeeting").value = cfg.meetingDate || "";
+}
+// 其余全部 GET 并行发出；每个返回即渲染对应分区，互不等待
+async function loadSections() {
+  await Promise.allSettled([
+    loadQuestion(true),
+    loadMessages(true),
+    loadMiss(true),
+    loadWishes(true),
+    loadLetters(true),
+    loadReactions(true),
+    loadSeen(),
+    initStatusCard(true),
+    loadPeriod(true),
+  ]);
+}
+// ---- 轮询：拉同一批 GET，与上一轮做 JSON 对比，只重渲染有变化的分区 ----
+const POLL_SECTIONS = [
+  ["config", () => api("/api/config")],
+  ["question", () => api("/api/question")],
+  ["messages", () => api("/api/messages")],
+  ["miss", () => api("/api/miss")],
+  ["wishes", () => api("/api/wishes")],
+  ["letters", () => api("/api/letters")],
+  ["reactions", () => api("/api/reactions")],
+  ["seen", () => api("/api/seen")],
+  ["status", () => api("/api/status")],
+  ["period", () => api("/api/period")],
+];
+// 某分区正被编辑（聚焦或有未发送文字）时跳过本轮重渲染，绝不冲掉用户输入
+function sectionBusy(key) {
+  const elId = { question: "myAnswer", messages: "msgInput", wishes: "wishInput", status: "statusText" }[key];
+  if (elId) {
+    const e = $(elId);
+    if (e && (document.activeElement === e || e.value.trim() !== "")) return true;
+  }
+  if (key === "period") {
+    const f = $("periodForm");
+    if (f && f.querySelector(":focus")) return true;
+    if ($("periodNote").value.trim() !== "" || $("periodEnd").value !== "") return true;
+  }
+  return false;
+}
+function applySection(key, data) {
+  switch (key) {
+    case "config": applyConfig(data); break;
+    case "question": lastQuestion = data; renderQuestionView(); break;
+    case "messages": lastMessages = data.messages || []; renderMessagesView(); break;
+    case "miss": lastMiss = data; renderMiss(data); break;
+    case "wishes": renderWishesList(data.wishes || []); break;
+    case "letters": renderLettersList(data.letters || []); break;
+    case "reactions": reactions = data.reactions || {}; refreshReactLines(); break;
+    case "seen": seen = data.seen || { a: null, b: null }; break;
+    case "status": statusData = data.status || { a: null, b: null }; renderStatusCard(); break;
+    case "period": periodRecords = data.records || []; periodComputed = data.computed || {}; renderPeriodHead(); renderPeriodList(); break;
+  }
+}
+// 因「用户正在输入」而暂缓渲染的最新数据；等该分区空闲后再补上，避免丢失变化
+const pendingRender = {};
+async function refreshChangedSections(silent) {
+  // 并行拉取；任何一路失败都静默跳过该路（不弹错、不清屏）
+  const results = await Promise.allSettled(POLL_SECTIONS.map(([k, fn]) => fn()));
+  for (let i = 0; i < POLL_SECTIONS.length; i++) {
+    const key = POLL_SECTIONS[i][0];
+    const r = results[i];
+    if (r.status !== "fulfilled") continue;
+    const prev = pollData[key];
+    const changed = prev === undefined || JSON.stringify(prev) !== JSON.stringify(r.value);
+    pollData[key] = r.value;
+    if (!changed) {
+      // 本轮没变，但如果之前因忙碌暂存了同版本数据，且现在空闲了就补渲染
+      if (pendingRender[key] !== undefined && JSON.stringify(pendingRender[key]) === JSON.stringify(r.value) && !sectionBusy(key)) {
+        try { applySection(key, r.value); } catch (e) { /* 忽略 */ }
+        delete pendingRender[key];
+        updateUnread();
+      }
+      continue;
+    }
+    if (sectionBusy(key)) { pendingRender[key] = r.value; continue; } // 正在编辑：暂存，下一轮空闲再渲染
+    try {
+      applySection(key, r.value);
+    } catch (e) { /* 单区渲染异常不影响其他分区 */ }
+    updateUnread(); // 新数据到齐后让未读横幅基于最新数据判断
+  }
+}
+// 登录成功 / 切换身份后走这里：主界面框架已在 DOM 中（HTML 静态），直接开始并行填充
+async function enterMain() {
+  show("mainView");
   bindUnreadBanner();
-  await Promise.all([loadSeen(), loadReactions()]);
   reportSeen();
-  loadQuestion();
-  loadMessages();
-  loadMiss();
-  loadWishes();
-  loadLetters();
-  initStatusCard();
-  loadPeriod();
+  startPolling();
+  await loadSections();
+}
+// 页面刷新带 token 进来：config 决定要不要先选身份，但主界面骨架先显示、不等任何接口
+async function loadAll() {
+  let firstCfg;
+  try {
+    firstCfg = await loadConfigOnly();
+  } catch (e) {
+    toast(e.message);
+    return;
+  }
+  pollData.config = firstCfg;
+  if (!who) {
+    renderWhoChoices();
+    show("whoView");
+    return;
+  }
+  await enterMain();
+}
+async function refreshConfig() {
+  const data = await api("/api/config");
+  applyConfig(data);
 }
 function renderHero() {
   $("avatarA").textContent = [...cfg.names.a][0] || "?";
@@ -789,12 +895,13 @@ function refreshReactLines() {
     else reactionLines.splice(i, 1);
   }
 }
-async function loadReactions() {
+async function loadReactions(silent) {
   try {
     const d = await api("/api/reactions");
+    pollData.reactions = d;
     reactions = d.reactions || {};
     refreshReactLines();
-  } catch (e) { toast(e.message); }
+  } catch (e) { if (!silent) toast(e.message); }
 }
 async function sendReaction(target, type) {
   if (!who) return;
@@ -806,11 +913,12 @@ async function sendReaction(target, type) {
 }
 let seenReported = false;
 let seenTimer = null;
-async function loadSeen() {
+async function loadSeen(silent) {
   try {
     const d = await api("/api/seen");
+    pollData.seen = d;
     seen = d.seen || { a: null, b: null };
-  } catch (e) { seen = { a: null, b: null }; }
+  } catch (e) { if (!silent) seen = { a: null, b: null }; }
 }
 // 每次进入页面最多报一次；页面加载与留言渲染都触发时用 400ms 防抖合并
 function reportSeen() {
@@ -873,11 +981,13 @@ function paintMoodPills() {
   }
 }
 let statusBound = false;
-async function initStatusCard() {
+async function initStatusCard(silent) {
+  let d;
   try {
-    const d = await api("/api/status");
-    statusData = d.status || { a: null, b: null };
-  } catch (e) { statusData = { a: null, b: null }; }
+    d = await api("/api/status");
+  } catch (e) { if (!silent) toast(e.message); d = { status: { a: null, b: null } }; }
+  statusData = d.status || { a: null, b: null };
+  pollData.status = d;
   const mine = statusData[who];
   chosenMood = mine && MOODS[mine.mood] ? mine.mood : null;
   $("statusText").value = mine && mine.text ? mine.text : "";
@@ -887,6 +997,7 @@ async function initStatusCard() {
     $("busyDoneBtn").addEventListener("click", submitBusyDone);
   }
   renderStatusCard();
+  sectionRendered.status = true;
 }
 async function submitStatus() {
   if (!chosenMood || !MOODS[chosenMood]) { toast("先选一个现在的状态吧"); return; }
@@ -970,24 +1081,31 @@ function saveLastVisit() {
 }
 
 // ============ 每日一问 ============
-async function loadQuestion() {
+function renderQuestionView() {
+  if (!lastQuestion) return;
+  const data = lastQuestion;
+  const today = data.date || todayStr();
+  $("questionText").textContent = data.question;
+  const box = $("answersBox");
+  box.innerHTML = "";
+  for (const w of ["a", "b"]) {
+    const card = el("div", "ans");
+    card.appendChild(el("div", "who", nameOf(w) + (w === who ? "（我）" : "")));
+    if (data.answers[w]) card.appendChild(el("div", "txt", data.answers[w]));
+    else card.appendChild(el("div", "none", "还没写"));
+    if (data.answers[w]) card.appendChild(reactLine("ans:" + today + ":" + w, true));
+    box.appendChild(card);
+  }
+  sectionRendered.question = true;
+}
+async function loadQuestion(silent) {
   try {
     const data = await api("/api/question");
-    const today = data.date || todayStr();
     lastQuestion = data;
-    $("questionText").textContent = data.question;
-    const box = $("answersBox");
-    box.innerHTML = "";
-    for (const w of ["a", "b"]) {
-      const card = el("div", "ans");
-      card.appendChild(el("div", "who", nameOf(w) + (w === who ? "（我）" : "")));
-      if (data.answers[w]) card.appendChild(el("div", "txt", data.answers[w]));
-      else card.appendChild(el("div", "none", "还没写"));
-      if (data.answers[w]) card.appendChild(reactLine("ans:" + today + ":" + w, true));
-      box.appendChild(card);
-    }
+    pollData.question = data;
+    renderQuestionView();
     updateUnread();
-  } catch (e) { toast(e.message); }
+  } catch (e) { if (!silent) toast(e.message); }
 }
 async function submitAnswer() {
   const text = $("myAnswer").value.trim();
@@ -1001,35 +1119,39 @@ async function submitAnswer() {
 }
 
 // ============ 留言墙 ============
-async function loadMessages() {
+function renderMessagesView() {
+  const box = $("msgList");
+  box.innerHTML = "";
+  if (!lastMessages.length) {
+    box.appendChild(el("div", "empty", "还没有留言，来写第一句吧。第一句总是最暖的。"));
+    sectionRendered.messages = true;
+    return;
+  }
+  for (const m of lastMessages) {
+    const row = el("div", "msg");
+    const meta = el("div", "meta");
+    const b = el("b", null, nameOf(m.who));
+    meta.appendChild(b);
+    meta.appendChild(document.createTextNode(" · " + fmtTime(m.ts)));
+    row.appendChild(meta);
+    row.appendChild(el("div", "txt", m.text));
+    row.appendChild(reactLine("msg:" + m.id, false));
+    if (m.who === who && partnerHasSeen(m.ts)) {
+      row.appendChild(el("div", "seen-tip", "对方已看过"));
+    }
+    box.appendChild(row);
+  }
+  sectionRendered.messages = true;
+}
+async function loadMessages(silent) {
   try {
     const data = await api("/api/messages");
     lastMessages = data.messages || [];
-    const box = $("msgList");
-    box.innerHTML = "";
-    if (!data.messages.length) {
-      box.appendChild(el("div", "empty", "还没有留言，来写第一句吧。第一句总是最暖的。"));
-      updateUnread();
-      reportSeen();
-      return;
-    }
-    for (const m of data.messages) {
-      const row = el("div", "msg");
-      const meta = el("div", "meta");
-      const b = el("b", null, nameOf(m.who));
-      meta.appendChild(b);
-      meta.appendChild(document.createTextNode(" · " + fmtTime(m.ts)));
-      row.appendChild(meta);
-      row.appendChild(el("div", "txt", m.text));
-      row.appendChild(reactLine("msg:" + m.id, false));
-      if (m.who === who && partnerHasSeen(m.ts)) {
-        row.appendChild(el("div", "seen-tip", "对方已看过"));
-      }
-      box.appendChild(row);
-    }
+    pollData.messages = data;
+    renderMessagesView();
     reportSeen();
     updateUnread();
-  } catch (e) { toast(e.message); }
+  } catch (e) { if (!silent) toast(e.message); }
 }
 async function submitMessage() {
   const input = $("msgInput");
@@ -1057,13 +1179,15 @@ function renderMiss(data) {
   box.appendChild(line1);
   box.appendChild(line2);
 }
-async function loadMiss() {
+async function loadMiss(silent) {
   try {
     const data = await api("/api/miss");
     lastMiss = data;
+    pollData.miss = data;
     renderMiss(data);
+    sectionRendered.miss = true;
     updateUnread();
-  } catch (e) { toast(e.message); }
+  } catch (e) { if (!silent) toast(e.message); }
 }
 async function submitMiss() {
   try {
@@ -1074,39 +1198,45 @@ async function submitMiss() {
 }
 
 // ============ 愿望清单 ============
-async function loadWishes() {
+function renderWishesList(wishes) {
+  const box = $("wishList");
+  box.innerHTML = "";
+  if (!wishes.length) {
+    box.appendChild(el("div", "empty", "还没有愿望。想一起做的事，写下来就会慢慢成真。"));
+    sectionRendered.wishes = true;
+    return;
+  }
+  for (const w of wishes) {
+    const row = el("div", "wish");
+    const toggle = el("button", "toggle", w.done ? "💗" : "🤍");
+    toggle.title = w.done ? "标记为未完成" : "标记为已完成";
+    toggle.addEventListener("click", async () => {
+      try { await apiPost("/api/wishes", { action: "toggle", id: w.id }); loadWishes(); }
+      catch (e) { toast(e.message); }
+    });
+    const mid = el("div");
+    mid.appendChild(el("div", "txt" + (w.done ? " done" : ""), w.text));
+    mid.appendChild(el("div", "by", "由 " + nameOf(w.by) + " 添加"));
+    mid.appendChild(reactLine("wish:" + w.id, true));
+    const del = el("button", "del", "✕");
+    del.title = "删除";
+    del.addEventListener("click", async () => {
+      try { await apiPost("/api/wishes", { action: "delete", id: w.id }); loadWishes(); }
+      catch (e) { toast(e.message); }
+    });
+    row.appendChild(toggle);
+    row.appendChild(mid);
+    row.appendChild(del);
+    box.appendChild(row);
+  }
+  sectionRendered.wishes = true;
+}
+async function loadWishes(silent) {
   try {
     const data = await api("/api/wishes");
-    const box = $("wishList");
-    box.innerHTML = "";
-    if (!data.wishes.length) {
-      box.appendChild(el("div", "empty", "还没有愿望。想一起做的事，写下来就会慢慢成真。"));
-      return;
-    }
-    for (const w of data.wishes) {
-      const row = el("div", "wish");
-      const toggle = el("button", "toggle", w.done ? "💗" : "🤍");
-      toggle.title = w.done ? "标记为未完成" : "标记为已完成";
-      toggle.addEventListener("click", async () => {
-        try { await apiPost("/api/wishes", { action: "toggle", id: w.id }); loadWishes(); }
-        catch (e) { toast(e.message); }
-      });
-      const mid = el("div");
-      mid.appendChild(el("div", "txt" + (w.done ? " done" : ""), w.text));
-      mid.appendChild(el("div", "by", "由 " + nameOf(w.by) + " 添加"));
-      mid.appendChild(reactLine("wish:" + w.id, true));
-      const del = el("button", "del", "✕");
-      del.title = "删除";
-      del.addEventListener("click", async () => {
-        try { await apiPost("/api/wishes", { action: "delete", id: w.id }); loadWishes(); }
-        catch (e) { toast(e.message); }
-      });
-      row.appendChild(toggle);
-      row.appendChild(mid);
-      row.appendChild(del);
-      box.appendChild(row);
-    }
-  } catch (e) { toast(e.message); }
+    pollData.wishes = data;
+    renderWishesList(data.wishes || []);
+  } catch (e) { if (!silent) toast(e.message); }
 }
 async function submitWish() {
   const input = $("wishInput");
@@ -1120,24 +1250,30 @@ async function submitWish() {
 }
 
 // ============ 时光信 ============
-async function loadLetters() {
+function renderLettersList(letters) {
+  const box = $("letterList");
+  box.innerHTML = "";
+  if (!letters.length) {
+    box.appendChild(el("div", "empty", "还没有时光信，写一封给未来的某一天吧"));
+    sectionRendered.letters = true;
+    return;
+  }
+  for (const l of letters) {
+    const card = el("div", "letter");
+    card.appendChild(el("div", "lt", l.title));
+    card.appendChild(el("div", "lm", "来自 " + nameOf(l.from) + " · 解锁日期 " + fmtDateCN(l.unlockDate)));
+    if (l.locked) card.appendChild(el("div", "locked", "🔒 还没到日子，到了那天就能打开"));
+    else card.appendChild(el("div", "lb", l.body || ""));
+    box.appendChild(card);
+  }
+  sectionRendered.letters = true;
+}
+async function loadLetters(silent) {
   try {
     const data = await api("/api/letters");
-    const box = $("letterList");
-    box.innerHTML = "";
-    if (!data.letters.length) {
-      box.appendChild(el("div", "empty", "还没有时光信，写一封给未来的某一天吧"));
-      return;
-    }
-    for (const l of data.letters) {
-      const card = el("div", "letter");
-      card.appendChild(el("div", "lt", l.title));
-      card.appendChild(el("div", "lm", "来自 " + nameOf(l.from) + " · 解锁日期 " + fmtDateCN(l.unlockDate)));
-      if (l.locked) card.appendChild(el("div", "locked", "🔒 还没到日子，到了那天就能打开"));
-      else card.appendChild(el("div", "lb", l.body || ""));
-      box.appendChild(card);
-    }
-  } catch (e) { toast(e.message); }
+    pollData.letters = data;
+    renderLettersList(data.letters || []);
+  } catch (e) { if (!silent) toast(e.message); }
 }
 async function submitLetter() {
   const title = $("letterTitle").value.trim();
@@ -1244,12 +1380,14 @@ function applyPeriodResult(d) {
   renderPeriodHead();
   renderPeriodList();
 }
-async function loadPeriod() {
+async function loadPeriod(silent) {
   if (!who) return;
   try {
     const d = await api("/api/period");
+    pollData.period = d;
     applyPeriodResult(d);
-  } catch (e) { toast(e.message); }
+    sectionRendered.period = true;
+  } catch (e) { if (!silent) toast(e.message); }
 }
 async function addPeriodToday() {
   if (!who) return;
@@ -1367,12 +1505,36 @@ $("switchWhoBtn").addEventListener("click", () => {
 });
 $("logoutBtn").addEventListener("click", doLogout);
 
+// ============ 实时刷新（15s 轮询，仅页面可见时） ============
+const POLL_MS = 15000;
+let pollTimer = null;
+let polling = false; // 防止上一轮没跑完就重入
+function startPolling() {
+  stopPolling();
+  if (!who) return;
+  pollTimer = setInterval(pollTick, POLL_MS);
+}
+function stopPolling() {
+  if (pollTimer !== null) { clearInterval(pollTimer); pollTimer = null; }
+}
+async function pollTick() {
+  if (document.hidden || !who || polling) return;
+  polling = true;
+  try { await refreshChangedSections(true); } finally { polling = false; }
+}
+// 后台切回前台 / 重新聚焦时立刻补刷一次
+document.addEventListener("visibilitychange", () => { if (!document.hidden && who) pollTick(); });
+window.addEventListener("focus", () => { if (who) pollTick(); });
+
 (async function init() {
   if (!token) { show("loginView"); return; }
+  // 有 token 先显示主界面静态骨架（hero/卡片标题已在 HTML 里），再并行取数；
+  // config 回来发现还没选身份才切到 whoView —— 任何情况下都不整页全白
+  show("mainView");
   try {
     await loadAll();
   } catch (e) {
-    show("loginView");
+    doLogout();
   }
 })();
 </script>
